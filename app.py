@@ -14,6 +14,7 @@
 
 import streamlit as st
 from scipy.stats import binomtest
+import numpy as np
 
 st.title('1×2 母比率検定 早見アプリ')
 
@@ -25,6 +26,14 @@ with sep_002:
     k = st.number_input('成功数 （度数）', min_value=0, step=1, value=5, max_value=N)
 
 # 計算ボタン
+if st.button('p値を計算'):
+    # 二項検定
+    result = binomtest(k, n=N, p=0.5, alternative='greater')
+    p_value = result.pvalue
 
+    # 出力
+    st.subheader('計算結果')
+    st.write(f'**N={N}, 成功数={k}の場合の片側p値：**')
+    st.metric(label='p値', value=f'{np.round(p_value, 3)}')
 
 
