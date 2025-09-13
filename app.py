@@ -28,7 +28,6 @@ def main():
     st.markdown('### 1×2 母比率検定 早見アプリ') 
     # 対象データの入力
     n, k, p = fn.input_data()
-
     conf_level, ci_method, method_label = fn.setting_conf()
 
     # 計算ボタン
@@ -40,5 +39,3 @@ def main():
 #  --- スクリプトとして実行されたときだけ main() を呼ぶ ---
 if __name__ == '__main__':
     main()
-
-
