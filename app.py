@@ -22,7 +22,6 @@ font_path = "font/NotoSansJP-Regular.ttf"
 fm.fontManager.addfont(font_path)
 mpl.rcParams["font.family"] = fm.FontProperties(fname=font_path).get_name()
 
-
  
 # --メイン関数--
 def main():

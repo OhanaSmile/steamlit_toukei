@@ -17,7 +17,6 @@ def input_data():
 
     return N, k, p
 
-
 def setting_conf():
     # 追加: 信頼水準と手法をUIで指定（任意）
     sep_101, sep_102, sep_103 = st.columns(3)
