@@ -11,11 +11,21 @@ def input_data():
     with sep_001:
         N = st.number_input('試行回数 N', min_value=1, step=1, value=10)
     with sep_002:
-        k = st.number_input('成功数 （度数）', min_value=0, step=1, value=5, max_value=N)
-    with sep_003:
         p = st.number_input('成功確率', min_value=0.0, step=0.01, value=.5, max_value=1.0)
+    
+    sep_0011, sep_0021, sep_0031 = st.columns(3)
+    with sep_0011:
+        k = st.number_input('成功数 （度数）', min_value=0, step=1, value=5, max_value=N)
+        z = k / N
+        st.write(f'成功率: {z:.3f}')
 
-    return N, k, p
+    st.markdown('---')
+    
+    sep_0012, sep_0022 = st.columns(2)
+    with sep_0012:
+        arternative = st.radio('片側？両側？', options=['greater', 'less', 'two-sided'], index=0, horizontal=True)  # 'two-sided', 'less', 'greater'
+
+    return N, k, p, arternative
 
 def setting_conf():
     # 追加: 信頼水準と手法をUIで指定（任意）
@@ -23,7 +33,7 @@ def setting_conf():
     with sep_101:
         conf_level = st.slider('信頼水準', min_value=0.80, max_value=0.99, value=0.95, step=0.01)
     with sep_102:
-        method_label = st.selectbox('信頼区間の方法', ['Wilson', 'Wilson (CC: 連続性補正)', 'Clopper-Pearson (Exact)'])
+        method_label = st.selectbox('信頼区間の方法', ['Wilson']) # , 'Wilson (CC: 連続性補正)', 'Clopper-Pearson (Exact)'
         method_map = {
             'Wilson': 'wilson',
             'Wilson (CC: 連続性補正)': 'wilsoncc',
@@ -34,8 +44,8 @@ def setting_conf():
 
 
 
-def create_binom(k, N, p, conf_level, ci_method, method_label):
-    result = binomtest(k, n=N, p= p, alternative='greater')
+def create_binom(k, N, p, arternative, conf_level, ci_method, method_label):
+    result = binomtest(k, n=N, p= p, alternative= arternative)  # 'two-sided' 'less' 'greater'
     p_value = result.pvalue
 
     # 出力
@@ -51,7 +61,7 @@ def create_binom(k, N, p, conf_level, ci_method, method_label):
     st.caption(f'方法: {method_label}')
 
 
-    # グラフ表示
+    # グラフ表示------------------------------
     x = np.arange(0, N + 1)
     pmf = binom.pmf(x, N, p)
 
