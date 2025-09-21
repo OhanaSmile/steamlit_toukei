@@ -11,7 +11,7 @@ def input_data():
     with sep_001:
         N = st.number_input('試行回数 N', min_value=1, step=1, value=10)
     with sep_002:
-        p = st.number_input('成功確率', min_value=0.0, step=0.01, value=.5, max_value=1.0)
+        p = st.number_input('成功確率', min_value=0.00, step=0.01, value=.50, max_value=1.00)
     
     sep_0011, sep_0021, sep_0031 = st.columns(3)
     with sep_0011:
