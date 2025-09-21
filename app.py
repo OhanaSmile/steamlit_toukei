@@ -17,6 +17,7 @@ import numpy as np
 import matplotlib.font_manager as fm
 import matplotlib as mpl
 from functions import function as fn
+from functions import category as cat
 
 font_path = "font/NotoSansJP-Regular.ttf"
 fm.fontManager.addfont(font_path)
@@ -25,14 +26,13 @@ mpl.rcParams["font.family"] = fm.FontProperties(fname=font_path).get_name()
  
 # --メイン関数--
 def main():
-    st.markdown('### 1×2 母比率検定 早見アプリ') 
-    # 対象データの入力
-    n, k, p, arternative = fn.input_data()
-    conf_level, ci_method, method_label = fn.setting_conf()
-
-    # 計算ボタン
-    if st.button('p値を計算'):
-        fn.create_binom(k, n, p, arternative, conf_level, ci_method, method_label)
+    stats_kind = st.radio('メニュー', options=['1×2 母比率検定', '母比率不等'], index=0)
+    st.markdown('---')
+     # メニューに応じて関数を呼び出す
+    if stats_kind == '1×2 母比率検定':
+        cat.cal_binom()
+    elif stats_kind == '母比率不等':
+        cat.pop_prop_diff()
 
 
 
